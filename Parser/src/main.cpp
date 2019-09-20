@@ -29,7 +29,10 @@ int main() {
         return -1;
     }
 
-    parse(xmlContent, size);
+    if(parse(xmlContent, size) < 0) {
+        printf("parse failed");
+        return -1;
+    }
     
     unsigned int nthreads = std::thread::hardware_concurrency();
     printf("Threads: %d\n", nthreads);

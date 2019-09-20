@@ -7,37 +7,51 @@
 size_t getElementName(char* xmlChunk, char** elemName) {
     // allocate memory for a 16 character element name
     size_t maxElemSize = 16;
-    *elemName = (char*) malloc(maxElemSize * sizeof(char));
-
-    size_t currentElemSize = 0;
+    *elemName = (char*) malloc(maxElemSize);
+    if(!elemName) {
+        printf("memory allocation failed");
+        return -1;
+    }
+      
+   
+    size_t elemSize = 0;
     // skip past opening <
     ++xmlChunk;
     while(*xmlChunk != '>') {
-        *elemName += currentElemSize;
         **elemName = *xmlChunk;
-        *elemName -= currentElemSize;
         
-        if(++currentElemSize == maxElemSize) {
+        if(++elemSize == maxElemSize) {
             // out of memory, allocate more
-            *elemName = (char*) realloc(*elemName, maxElemSize *= 2);
+            // reset the pointer to beginning so realloc works
+            *elemName = (char*) realloc(*elemName -= elemSize - 1, maxElemSize *= 2);
+            // set pointer forward to where it was before realloc
+            *elemName += elemSize - 1;
         }
         
+        ++*elemName;
         ++xmlChunk;
     }
     
-    //*elemName -= currentElemSize;
+    *elemName -= elemSize;
 
-    return currentElemSize;
+    return elemSize;
 }
 
-void parse(char* xmlChunk, size_t chunkSize) {
+int parse(char* xmlChunk, size_t chunkSize) {
     for(int i = 0; i < chunkSize; i++) {
         if(*xmlChunk == '<') {
             char* elemName;
             size_t elemSize = getElementName(xmlChunk, &elemName);
+            if(elemSize < 0) {
+                printf("getElementName failed");
+                return -1;
+            }
             printf("element name size: %zu\n", elemSize);
             printf("elem name: %s\n", elemName);
+            free(elemName);
             break;
         }
     }
+    
+    return 0;
 }
