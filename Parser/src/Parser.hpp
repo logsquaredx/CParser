@@ -11,6 +11,6 @@
 
 #include <stdio.h>
 
-int parse(char* xmlChunk, size_t chunkSize);
+int parse(char* xmlChunk, size_t chunkSize, char* xPath);
 
 #endif /* Parser_hpp */

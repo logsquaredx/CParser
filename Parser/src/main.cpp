@@ -29,7 +29,11 @@ int main() {
         return -1;
     }
 
-    if(parse(xmlContent, size) < 0) {
+    char xPath[] = {'/', 'e', 'l', 'e', 'm', 'e', 'l', 'e', 'm', 'e','l', 'e', 'm', 'e', 'l', 'e', 'm', 'e', 'l', 'e', 'm',
+        '/', 'e', 'l', 'e', 'm', '8', '0',
+        '/', 'e', 'l', 'e', 'm', '8', '1',
+        '/', 't', 'e', 'x', 't', '(', ')'};
+    if(parse(xmlContent, size, xPath) < 0) {
         printf("parse failed");
         return -1;
     }
