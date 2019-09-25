@@ -36,8 +36,24 @@ size_t getElementName(char** xmlChunk, char** elemName) {
     return elemSize;
 }
 
+bool compareElementNames(char* one, char* two, size_t size) {
+    bool equal = true;
+    for(int i = 0; i < size; ++i) {
+        if(*one != *two) {
+            equal = false;
+            break;
+        }
+        ++one;
+        ++two;
+    }
+    
+    return equal;
+}
+
 int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
-    for(int i = 0; i < chunkSize; i++) {
+    // skip past '/'
+    ++xPath;
+    for(int i = 0; i < chunkSize; ++i) {
         if(*xmlChunk == '<') {
             char* elemName;
             size_t elemSize = getElementName(&xmlChunk, &elemName);
@@ -45,8 +61,14 @@ int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
                 printf("getElementName failed");
                 return -1;
             }
-            printf("elem name: %s\n", elemName);
+            
+            if(compareElementNames(elemName, xPath, elemSize)) {
+                printf("elements were equal\n");
+            }
+            
+            // printf("elem name: %s\n", elemName);
             free(elemName);
+            break;
         }
         ++xmlChunk;
     }

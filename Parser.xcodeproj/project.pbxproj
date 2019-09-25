@@ -116,7 +116,7 @@
 		20A4B1AC2330808E00A380BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Evan Logsdon";
 				TargetAttributes = {
 					20A4B1B32330808E00A380BD = {
@@ -130,6 +130,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 20A4B1AB2330808E00A380BD;
 			productRefGroup = 20A4B1B52330808E00A380BD /* Products */;
@@ -269,6 +270,7 @@
 		20A4B1BC2330808E00A380BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3X7FDY2YU7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -278,6 +280,7 @@
 		20A4B1BD2330808E00A380BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3X7FDY2YU7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
