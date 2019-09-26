@@ -50,6 +50,27 @@ bool compareElementNames(char* one, char* two, size_t size) {
     return equal;
 }
 
+bool checkReadyToExtractText(char* xPath) {
+    bool ready = true;
+    char extractText[] = {'t', 'e', 'x', 't', '(', ')'};
+    
+    for(int i = 0; i < 6; i++) {
+        if(extractText[i] != *xPath) {
+            ready = false;
+            break;
+        }
+        
+        ++xPath;
+    }
+    
+    return ready;
+}
+
+char* extractText(char* xmlChunk, char** extractedText) {
+    //TODO
+    return *extractedText;
+}
+
 int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
     // skip past '/'
     ++xPath;
@@ -63,15 +84,24 @@ int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
             }
             
             if(compareElementNames(elemName, xPath, elemSize)) {
-                printf("elements were equal\n");
+                // found element we were looking for,
+                // move past it and the next '/'
+                xPath += elemSize + 1;
+                
+                if(checkReadyToExtractText(xPath)) {
+                    printf("ready to extract\n");
+                    char* extractedtext;
+                    extractText(xmlChunk, &extractedtext);
+                    
+                    printf("extracted text: %s\n", extractedtext);
+                }
             }
             
             // printf("elem name: %s\n", elemName);
             free(elemName);
-            break;
         }
         ++xmlChunk;
     }
-    
+        
     return 0;
 }
