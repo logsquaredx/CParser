@@ -26,12 +26,14 @@
 
 /* Begin PBXFileReference section */
 		207F19BE23319AC5007D7459 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		207F19C023319ACE007D7459 /* test.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = test.xml; sourceTree = "<group>"; };
 		207F19C123319AF6007D7459 /* FIleUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FIleUtils.cpp; sourceTree = "<group>"; };
 		207F19C223319AF6007D7459 /* FileUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FileUtils.hpp; sourceTree = "<group>"; };
 		207F19C5233275CC007D7459 /* Parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
 		207F19C6233275CC007D7459 /* Parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Parser.hpp; sourceTree = "<group>"; };
 		20A4B1B42330808E00A380BD /* Parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Parser; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E10B2C233CE5CB008E5B26 /* 1.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = 1.xml; sourceTree = "<group>"; };
+		B8E10B2D233CE5CB008E5B26 /* 2.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = 2.xml; sourceTree = "<group>"; };
+		B8E10B2E233CE5CB008E5B26 /* 3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = 3.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +62,9 @@
 		207F19BF23319ACE007D7459 /* content */ = {
 			isa = PBXGroup;
 			children = (
-				207F19C023319ACE007D7459 /* test.xml */,
+				B8E10B2C233CE5CB008E5B26 /* 1.xml */,
+				B8E10B2D233CE5CB008E5B26 /* 2.xml */,
+				B8E10B2E233CE5CB008E5B26 /* 3.xml */,
 			);
 			path = content;
 			sourceTree = "<group>";

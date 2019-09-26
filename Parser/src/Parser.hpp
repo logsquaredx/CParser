@@ -10,6 +10,7 @@
 #define Parser_hpp
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int parse(char* xmlChunk, size_t chunkSize, char* xPath);
 

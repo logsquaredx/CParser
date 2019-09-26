@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <sys/stat.h>
-#include <sys/mman.h>
 
 size_t getFileSize(int fd) {
     struct stat s;
@@ -20,4 +19,23 @@ int mapFile(int fd, size_t size, char** mappedFile) {
     } else {
         return 0;
     }
+}
+
+bool isFileXml(char* filename, int filenameSize) {
+    int xmlSuffixSize = 4;
+    char xmlsuffix[] = ".xml";
+    bool isXml = true;
+
+    filename += filenameSize - xmlSuffixSize;
+    
+    for(int i = 0; i < xmlSuffixSize; ++i) {
+        if(xmlsuffix[i] != *filename) {
+            isXml = false;
+            break;
+        }
+        ++filename;
+    }
+    
+    
+    return isXml;
 }

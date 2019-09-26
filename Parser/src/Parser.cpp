@@ -1,21 +1,18 @@
 #include "Parser.hpp"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-
 size_t getElementName(char** xmlChunk, char** elemName) {
+    // skip past opening <
+    ++*xmlChunk;
+    
     // allocate memory for a 16 character element name
     size_t maxElemSize = 16;
     *elemName = (char*) malloc(maxElemSize * sizeof(char));
     if(!elemName) {
-        printf("memory allocation failed");
+        printf("memory allocation for element name failed\n");
         return -1;
     }
     
     size_t elemSize = 0;
-    // skip past opening <
-    ++*xmlChunk;
     while(**xmlChunk != '>') {
         **elemName = **xmlChunk;
         
@@ -66,9 +63,36 @@ bool checkReadyToExtractText(char* xPath) {
     return ready;
 }
 
-char* extractText(char* xmlChunk, char** extractedText) {
-    //TODO
-    return *extractedText;
+int extractText(char** xmlChunk, char** extractedText) {
+    // skip past '>'
+    ++*xmlChunk;
+    
+    size_t maxTextSize = 16;
+    *extractedText = (char*) malloc(maxTextSize * sizeof(char));
+    if(!extractedText) {
+        printf("memory allocation for text extraction failed\n");
+        return -1;
+    }
+    
+    size_t textSize = 0;
+    while(**xmlChunk != '<') {
+        **extractedText = **xmlChunk;
+        
+        if(++textSize == maxTextSize) {
+            // out of memory, allocate more
+            // reset the pointer to beginning so realloc works
+            *extractedText = (char*) realloc(*extractedText -= textSize - 1, maxTextSize *= 2);
+            // set pointer forward to where it was before realloc
+            *extractedText += textSize - 1;
+        }
+        
+        ++*extractedText;
+        ++*xmlChunk;
+    }
+    
+    *extractedText -= textSize;
+    
+    return 0;
 }
 
 int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
@@ -79,7 +103,7 @@ int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
             char* elemName;
             size_t elemSize = getElementName(&xmlChunk, &elemName);
             if(elemSize < 0) {
-                printf("getElementName failed");
+                printf("getElementName failed\n");
                 return -1;
             }
             
@@ -89,11 +113,13 @@ int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
                 xPath += elemSize + 1;
                 
                 if(checkReadyToExtractText(xPath)) {
-                    printf("ready to extract\n");
                     char* extractedtext;
-                    extractText(xmlChunk, &extractedtext);
+                    extractText(&xmlChunk, &extractedtext);
                     
                     printf("extracted text: %s\n", extractedtext);
+                    free(elemName);
+                    free(extractedtext);
+                    break;
                 }
             }
             
