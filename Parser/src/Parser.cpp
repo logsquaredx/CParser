@@ -116,7 +116,7 @@ int parse(char* xmlChunk, size_t chunkSize, char* xPath) {
                     char* extractedtext;
                     extractText(&xmlChunk, &extractedtext);
                     
-                    printf("extracted text: %s\n", extractedtext);
+                    //printf("extracted text: %s\n", extractedtext);
                     free(elemName);
                     free(extractedtext);
                     break;

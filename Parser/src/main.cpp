@@ -4,12 +4,14 @@
 #include <unistd.h> // close()
 #include <fcntl.h> // open()
 #include <dirent.h> // opendir(), closedir(), dirent
-#include <string.h> // for memcpy
-
+#include <string.h> // for strcat()
+#include <time.h> // for time()
 
 // #include <thread>
 
 int main() {
+    printf("start: %lu\n", (unsigned long) time(NULL));
+    
     char dirString[] = "../content/";
     DIR *directory = opendir(dirString);
     struct dirent *de;
@@ -21,16 +23,10 @@ int main() {
     while((de = readdir(directory)) != NULL) {
         if(!isFileXml(de->d_name, de->d_namlen)) continue;
            
-        char* filePath = (char*) malloc((sizeof(dirString) + de->d_namlen) * sizeof(char));
+        char* filePath = (char*) calloc(sizeof(dirString) + de->d_namlen, sizeof(char));
         
-        printf("%s\n", de->d_name);
-        printf("%d\n", de->d_namlen);
-        memcpy(filePath, dirString, sizeof(dirString) * sizeof(char));
-        printf("%s\n", filePath);
-        memcpy(filePath + sizeof(dirString) - 1, de->d_name, de->d_namlen * sizeof(char));
-        printf("%s\n", filePath);
-        
-        break;
+        strcat(filePath, dirString);
+        strcat(filePath, de->d_name);
         
         int fd = open(filePath, O_RDONLY);
         if(fd < 0) {
@@ -69,5 +65,7 @@ int main() {
 //    first.join();
 //    second.join();
     
+    printf("end: %lu\n", (unsigned long) time(NULL));
+
     return 0;
 }
